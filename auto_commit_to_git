@@ -1,0 +1,26 @@
+#!/bin/bash
+
+read -p "Which files would you like to add? " filesToCommit
+echo $filesToCommit
+for files in $filesToCommit
+do
+	git add $files
+    echo "Adding"
+done
+git status
+
+read -p "Enter commit message: " commitmessage
+git commit -S -m "$commitmessage"
+
+read -p "Are there files you would like to uncommit? Y/N" answer
+echo "yes"
+if [ $answer == "Y" ]; then 
+    git reset HEAD~1
+	git status
+fi
+
+if [ $answer == "N" ]; then 
+echo "no"
+	git push
+	git status
+fi
